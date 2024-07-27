@@ -1,38 +1,16 @@
-local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local notif = loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Code/main/aztup-ui/notifs.lua'))()
-print(GameName)
-local HttpService = game:GetService("HttpService")
-local requestFunction = (syn and syn.request) or (http and http.request) or http_request
 
-if requestFunction then
-    local nonce = HttpService:GenerateGUID(false)
-    local requestBody = HttpService:JSONEncode({
-        cmd = 'INVITE_BROWSER',
-        nonce = nonce,
-        args = {code = "yero"}
-    })
+
+
     
-    requestFunction({
-        Url = 'http://127.0.0.1:6463/rpc?v=1',
-        Method = 'POST',
-        Headers = {
-            ['Content-Type'] = 'application/json',
-            Origin = 'https://discord.com'
-        },
-        Body = requestBody
-    })
-else
-    warn("Unable to make HTTP request: requestFunction is not available")
-end  
-setclipboard("https://discord.gg/yero")
 
-notif.new({text = 'discord.gg/yero | our discord was copied to your clipboard join it ', duration = 40.2})
 
-    local notif = loadstring(game:HttpGet('https://raw.githubusercontent.com/Iratethisname10/Code/main/aztup-ui/notifs.lua'))()
+
+
+    
     local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua'))()
     local Window = ArrayField:CreateWindow({
             Name = "Beam Script | #hellmid0_0",
-            LoadingTitle = "yero Script Hub",
+            LoadingTitle = "Beam Script Hub",
             LoadingSubtitle = "discord.gg/beamscript",
             ConfigurationSaving = {
                 Enabled = true,
