@@ -1,3 +1,4 @@
+local ATMSFolder = game:GetService("Workspace").Map
 local ATMSFolder = game:GetService("Workspace").ATMS
                 local activeATMs = {}
                 _G.TextVisible = Value -- Initially not visible
