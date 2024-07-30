@@ -1,0 +1,53 @@
+local ATMSFolder = game:GetService("Workspace").ATMS
+                local activeATMs = {}
+                _G.TextVisible = Value -- Initially not visible
+
+                -- Function to create or update the text drawing object for an ATM
+                local function updateTextDrawing(atm)
+                    if not _G.TextVisible then return end -- Check if text visibility is disabled
+
+                    if activeATMs[atm] then
+                        activeATMs[atm]:Remove()
+                    end
+                    
+                    local text = "ATM Active"
+                    local textDrawing = Drawing.new("Text")
+                    textDrawing.Text = text
+                    textDrawing.Size = 20
+                    textDrawing.Color = Color3.fromRGB(255, 255, 255)
+                    
+                    local viewportPosition = game:GetService("Workspace").CurrentCamera:WorldToViewportPoint(atm.Position)
+                    textDrawing.Position = Vector2.new(viewportPosition.X, viewportPosition.Y) -- Convert to Vector2
+                    textDrawing.Visible = true
+                    activeATMs[atm] = textDrawing
+                end
+
+                -- Function to check for active ATMs and update text drawings
+                local function updateActiveATMs()
+                    if not _G.TextVisible then
+                        for _, textDrawing in pairs(activeATMs) do
+                            textDrawing:Remove() -- Remove all text drawings
+                        end
+                        activeATMs = {} -- Clear the table
+                        return
+                    end
+
+                    for _, ATM in pairs(ATMSFolder:GetChildren()) do
+                        local proximityPrompt = ATM:FindFirstChild("Attachment") and ATM.Attachment:FindFirstChild("ProximityPrompt")
+                        if proximityPrompt and proximityPrompt.Enabled then
+                            updateTextDrawing(ATM)
+                        elseif activeATMs[ATM] then
+                            activeATMs[ATM]:Remove()
+                            activeATMs[ATM] = nil
+                        end
+                    end
+                end
+
+                -- Call the function initially and set up a loop to continuously check for active ATMs
+                updateActiveATMs()
+                game:GetService("RunService").Stepped:Connect(function()
+                    updateActiveATMs()
+                end)
+ 
+            end,
+        
